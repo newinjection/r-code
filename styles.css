@@ -1031,6 +1031,8 @@ section {
     overflow-y: auto;
     padding: 1.5rem;
     min-height: 0;
+    position: relative;
+    z-index: 1;
 }
 
 .cart-customer {
@@ -1249,8 +1251,12 @@ section {
     border-top: 1px solid var(--border-color);
     flex-shrink: 0;
     background: var(--card-bg);
-    position: relative;
-    z-index: 1;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    box-shadow: 0 -12px 24px rgba(0, 0, 0, 0.35);
 }
 
 .cart-total {
