@@ -982,12 +982,15 @@ section {
     width: 100%;
     max-width: 420px;
     height: 100vh;
+    height: 100dvh;
     background: var(--card-bg);
     box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
     z-index: 2000;
     transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
 }
 
 .cart-sidebar.active {
@@ -1246,10 +1249,8 @@ section {
     border-top: 1px solid var(--border-color);
     flex-shrink: 0;
     background: var(--card-bg);
-    position: sticky;
-    bottom: 0;
-    z-index: 2;
-    box-shadow: 0 -12px 24px rgba(0, 0, 0, 0.35);
+    position: relative;
+    z-index: 1;
 }
 
 .cart-total {
