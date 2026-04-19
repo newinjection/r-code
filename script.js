@@ -406,6 +406,8 @@ function initCart() {
     const sendWhatsApp = document.getElementById('sendWhatsApp');
     const cartPhone = document.getElementById('cartPhone');
     const cartAddress = document.getElementById('cartAddress');
+    const cartCustomer = document.getElementById('cartCustomer');
+    const cartCustomerToggle = document.getElementById('cartCustomerToggle');
 
     function syncOnResize() {
         syncCartBottomPadding();
@@ -464,6 +466,13 @@ function initCart() {
 
     cartPhone?.addEventListener('input', persistCartCustomer);
     cartAddress?.addEventListener('input', persistCartCustomer);
+
+    cartCustomerToggle?.addEventListener('click', () => {
+        if (!cartCustomer) return;
+        const isCollapsed = cartCustomer.classList.toggle('collapsed');
+        cartCustomerToggle.setAttribute('aria-expanded', String(!isCollapsed));
+        syncCartBottomPadding();
+    });
 
     hydrateCartCustomer();
 }
