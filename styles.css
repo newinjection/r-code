@@ -1525,3 +1525,7 @@ section {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--secondary-color);
 }
+/* ===== HIDE SCROLL INDICATOR ===== */
+.scroll-indicator {
+    display: none !important;
+}
