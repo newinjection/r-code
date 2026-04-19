@@ -1,6 +1,11 @@
 // ===== GLOBAL VARIABLES =====
 let cart = JSON.parse(localStorage.getItem('rcode-cart')) || [];
 const SHIPPING_COST = 25; // דמי משלוח קבועים - ניתן לשנות
+const CART_CUSTOMER_STORAGE_KEY = 'rcode-cart-customer';
+let cartCustomer = JSON.parse(localStorage.getItem(CART_CUSTOMER_STORAGE_KEY)) || {
+    phone: '',
+    address: ''
+};
 
 // ===== PRODUCTS DATA =====
 const products = [
@@ -399,8 +404,41 @@ function initCart() {
     const cartSidebar = document.getElementById('cartSidebar');
     const cartOverlay = document.getElementById('cartOverlay');
     const sendWhatsApp = document.getElementById('sendWhatsApp');
+    const cartPhone = document.getElementById('cartPhone');
+    const cartAddress = document.getElementById('cartAddress');
 
     function syncOnResize() {
+        syncCartBottomPadding();
+    }
+
+    function hydrateCartCustomer() {
+        if (cartPhone) cartPhone.value = cartCustomer.phone || '';
+        if (cartAddress) cartAddress.value = cartCustomer.address || '';
+        updateSendWhatsAppState();
+        syncCartBottomPadding();
+    }
+
+    function normalizePhone(value) {
+        return (value || '').replace(/[^\d+]/g, '').trim();
+    }
+
+    function updateSendWhatsAppState() {
+        const phone = normalizePhone(cartPhone?.value || '');
+        const address = (cartAddress?.value || '').trim();
+        const ok = cart.length > 0 && phone.length >= 9 && address.length >= 6;
+        if (sendWhatsApp) {
+            sendWhatsApp.disabled = !ok;
+            sendWhatsApp.classList.toggle('is-disabled', !ok);
+        }
+    }
+
+    function persistCartCustomer() {
+        cartCustomer = {
+            phone: (cartPhone?.value || '').trim(),
+            address: (cartAddress?.value || '').trim()
+        };
+        localStorage.setItem(CART_CUSTOMER_STORAGE_KEY, JSON.stringify(cartCustomer));
+        updateSendWhatsAppState();
         syncCartBottomPadding();
     }
 
@@ -423,6 +461,11 @@ function initCart() {
 
     sendWhatsApp.addEventListener('click', sendCartToWhatsApp);
     window.addEventListener('resize', syncOnResize);
+
+    cartPhone?.addEventListener('input', persistCartCustomer);
+    cartAddress?.addEventListener('input', persistCartCustomer);
+
+    hydrateCartCustomer();
 }
 
 function syncCartBottomPadding() {
@@ -460,8 +503,26 @@ function sendCartToWhatsApp() {
     }
 
     const phoneNumber = '972584990152'; // החלף במספר שלך
+
+    const customerPhone = (document.getElementById('cartPhone')?.value || '').trim();
+    const customerAddress = (document.getElementById('cartAddress')?.value || '').trim();
+
+    if (!customerPhone || customerPhone.replace(/[^\d+]/g, '').length < 9) {
+        alert('נא להזין מספר פלאפון תקין למשלוח.');
+        document.getElementById('cartPhone')?.focus();
+        return;
+    }
+
+    if (!customerAddress || customerAddress.length < 6) {
+        alert('נא להזין כתובת משלוח.');
+        document.getElementById('cartAddress')?.focus();
+        return;
+    }
     
     let message = '🛍️ *הזמנה חדשה מ-R-CODE*\n\n';
+    message += '👤 *פרטי משלוח:*\n';
+    message += `📞 פלאפון: ${customerPhone}\n`;
+    message += `📍 כתובת: ${customerAddress}\n\n`;
     message += '📦 *פרטי ההזמנה:*\n';
     message += '━━━━━━━━━━━━━━━\n\n';
 
