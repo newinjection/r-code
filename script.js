@@ -440,7 +440,7 @@ function sendCartToWhatsApp() {
         return;
     }
 
-    const phoneNumber = '972501234567'; // החלף במספר שלך
+    const phoneNumber = '972584990152'; // החלף במספר שלך
     
     let message = '🛍️ *הזמנה חדשה מ-R-CODE*\n\n';
     message += '📦 *פרטי ההזמנה:*\n';
@@ -477,7 +477,7 @@ function initCustomOrder() {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const phoneNumber = '972501234567'; // החלף במספר שלך
+        const phoneNumber = '972584990152'; // החלף במספר שלך
 
         // Get form data
         const formData = {
