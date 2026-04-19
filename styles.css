@@ -1162,6 +1162,10 @@ section {
     border-top: 1px solid var(--border-color);
     flex-shrink: 0;
     background: var(--card-bg);
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    box-shadow: 0 -12px 24px rgba(0, 0, 0, 0.35);
 }
 
 .cart-total {
