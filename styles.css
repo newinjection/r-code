@@ -1529,3 +1529,16 @@ section {
 .scroll-indicator {
     display: none !important;
 }
+/* ===== SMALLER CART ICON IN PRODUCTS ===== */
+.add-to-cart-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* במובייל עוד יותר קטן */
+@media (max-width: 480px) {
+    .add-to-cart-btn svg {
+        width: 14px;
+        height: 14px;
+    }
+}
