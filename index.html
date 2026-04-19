@@ -357,6 +357,21 @@
             </button>
         </div>
 
+        <div class="cart-customer" id="cartCustomer">
+            <div class="cart-customer-title">פרטי משלוח</div>
+            <div class="cart-customer-grid">
+                <div class="cart-field">
+                    <label for="cartPhone">מספר פלאפון</label>
+                    <input id="cartPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="050-1234567" />
+                </div>
+                <div class="cart-field cart-field-full">
+                    <label for="cartAddress">כתובת למשלוח</label>
+                    <textarea id="cartAddress" rows="2" autocomplete="street-address" placeholder="עיר, רחוב, מספר בית, דירה (אם יש)"></textarea>
+                </div>
+            </div>
+            <div class="cart-customer-hint">הפרטים יישלחו יחד עם ההזמנה ב־WhatsApp.</div>
+        </div>
+
         <div class="cart-items" id="cartItems">
             <!-- Cart items will be injected here -->
         </div>
@@ -364,21 +379,6 @@
         <div class="cart-footer">
             <div class="cart-total" id="totalPrice">
                 ₪0
-            </div>
-
-            <div class="cart-customer">
-                <div class="cart-customer-title">פרטי משלוח</div>
-                <div class="cart-customer-grid">
-                    <div class="cart-field">
-                        <label for="cartPhone">מספר פלאפון</label>
-                        <input id="cartPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="050-1234567" />
-                    </div>
-                    <div class="cart-field cart-field-full">
-                        <label for="cartAddress">כתובת למשלוח</label>
-                        <textarea id="cartAddress" rows="2" autocomplete="street-address" placeholder="עיר, רחוב, מספר בית, דירה (אם יש)"></textarea>
-                    </div>
-                </div>
-                <div class="cart-customer-hint">הפרטים יישלחו יחד עם ההזמנה ב־WhatsApp.</div>
             </div>
 
             <button class="btn btn-primary btn-block btn-whatsapp" id="sendWhatsApp">
