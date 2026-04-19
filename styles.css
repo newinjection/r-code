@@ -1066,26 +1066,46 @@ section {
 .cart-field input,
 .cart-field textarea {
     width: 100%;
-    padding: 0.85rem 0.9rem;
-    background: var(--card-bg);
-    border: 2px solid var(--border-color);
+    padding: 0.95rem 1rem;
+    background: rgba(22, 22, 31, 0.9);
+    border: 1px solid rgba(0, 240, 255, 0.18);
     border-radius: 12px;
     color: var(--text-primary);
     font-size: 0.95rem;
     font-family: inherit;
-    transition: var(--transition);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.cart-field input::placeholder,
+.cart-field textarea::placeholder {
+    color: rgba(176, 176, 192, 0.75);
+}
+
+.cart-field input:hover,
+.cart-field textarea:hover {
+    border-color: rgba(0, 240, 255, 0.35);
+    background: rgba(22, 22, 31, 0.98);
 }
 
 .cart-field textarea {
     resize: vertical;
-    min-height: 70px;
+    min-height: 78px;
 }
 
 .cart-field input:focus,
 .cart-field textarea:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.1);
+    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.14), 0 10px 26px rgba(0, 240, 255, 0.08);
+    transform: translateY(-1px);
+}
+
+.cart-field input:-webkit-autofill,
+.cart-field textarea:-webkit-autofill {
+    -webkit-text-fill-color: var(--text-primary);
+    box-shadow: 0 0 0 1000px rgba(22, 22, 31, 0.98) inset, 0 8px 20px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(0, 240, 255, 0.28);
 }
 
 .cart-customer-hint {
