@@ -389,6 +389,8 @@ function updateCartUI() {
     } else {
         totalPrice.textContent = '₪0';
     }
+
+    syncCartBottomPadding();
 }
 
 function initCart() {
@@ -398,10 +400,15 @@ function initCart() {
     const cartOverlay = document.getElementById('cartOverlay');
     const sendWhatsApp = document.getElementById('sendWhatsApp');
 
+    function syncOnResize() {
+        syncCartBottomPadding();
+    }
+
     function openCart() {
         cartSidebar.classList.add('active');
         cartOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
+        syncCartBottomPadding();
     }
 
     function closeCart() {
@@ -415,6 +422,18 @@ function initCart() {
     cartOverlay.addEventListener('click', closeCart);
 
     sendWhatsApp.addEventListener('click', sendCartToWhatsApp);
+    window.addEventListener('resize', syncOnResize);
+}
+
+function syncCartBottomPadding() {
+    const cartItems = document.getElementById('cartItems');
+    const cartFooter = document.querySelector('#cartSidebar .cart-footer');
+    if (!cartItems || !cartFooter) return;
+
+    const extra = 16; // breathing room above the footer
+    const bottomSpace = Math.max(0, cartFooter.offsetHeight + extra);
+    cartItems.style.paddingBottom = `${bottomSpace}px`;
+    cartItems.style.scrollPaddingBottom = `${bottomSpace}px`;
 }
 
 // ===== TOAST NOTIFICATION =====
