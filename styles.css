@@ -50,7 +50,7 @@ body {
     z-index: 1;
     display: flex;
     flex-direction: column;
-    gap: 80px;
+    gap: 120px;
 }
 
 .floating-shirts-left {
@@ -62,21 +62,43 @@ body {
 }
 
 .shirt-float {
-    font-size: 4rem;
-    filter: drop-shadow(0 0 20px var(--color));
-    animation: float 6s ease-in-out infinite;
-    animation-delay: var(--delay);
-    opacity: 0.7;
-    transition: all 0.3s ease;
+    width: 180px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 30px rgba(0, 240, 255, 0.4));
+    transition: all 0.4s ease;
+    opacity: 0.85;
 }
 
+/* אנימציות שונות לכל חולצה */
+.shirt-1 {
+    animation: floatShirt1 8s ease-in-out infinite;
+}
+
+.shirt-2 {
+    animation: floatShirt2 10s ease-in-out infinite;
+    animation-delay: 1s;
+}
+
+.shirt-3 {
+    animation: floatShirt3 9s ease-in-out infinite;
+    animation-delay: 0.5s;
+}
+
+.shirt-4 {
+    animation: floatShirt4 11s ease-in-out infinite;
+    animation-delay: 1.5s;
+}
+
+/* Hover effects */
 .shirt-float:hover {
     opacity: 1;
-    transform: scale(1.2) rotate(10deg);
-    filter: drop-shadow(0 0 30px var(--color));
+    transform: scale(1.15) rotate(8deg);
+    filter: drop-shadow(0 15px 40px rgba(0, 240, 255, 0.7));
 }
 
-@keyframes float {
+/* אנימציות float שונות */
+@keyframes floatShirt1 {
     0%, 100% {
         transform: translateY(0) rotate(0deg);
     }
@@ -84,21 +106,84 @@ body {
         transform: translateY(-30px) rotate(5deg);
     }
     50% {
-        transform: translateY(-60px) rotate(-5deg);
+        transform: translateY(-60px) rotate(-3deg);
     }
     75% {
-        transform: translateY(-30px) rotate(3deg);
+        transform: translateY(-30px) rotate(4deg);
     }
 }
 
-/* Hide shirts on small screens */
-@media (max-width: 768px) {
+@keyframes floatShirt2 {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-40px) rotate(-6deg);
+    }
+    50% {
+        transform: translateY(-80px) rotate(4deg);
+    }
+    75% {
+        transform: translateY(-40px) rotate(-3deg);
+    }
+}
+
+@keyframes floatShirt3 {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-35px) rotate(4deg);
+    }
+    50% {
+        transform: translateY(-70px) rotate(-5deg);
+    }
+    75% {
+        transform: translateY(-35px) rotate(3deg);
+    }
+}
+
+@keyframes floatShirt4 {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-45px) rotate(-5deg);
+    }
+    50% {
+        transform: translateY(-90px) rotate(6deg);
+    }
+    75% {
+        transform: translateY(-45px) rotate(-4deg);
+    }
+}
+
+/* ===== RESPONSIVE FOR SHIRTS ===== */
+@media (max-width: 1200px) {
     .floating-shirts {
-        gap: 40px;
+        gap: 100px;
     }
     
     .shirt-float {
-        font-size: 2rem;
+        width: 140px;
+    }
+    
+    .floating-shirts-left {
+        left: 3%;
+    }
+    
+    .floating-shirts-right {
+        right: 3%;
+    }
+}
+
+@media (max-width: 992px) {
+    .floating-shirts {
+        gap: 80px;
+    }
+    
+    .shirt-float {
+        width: 110px;
     }
     
     .floating-shirts-left {
@@ -110,9 +195,50 @@ body {
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+    .floating-shirts {
+        gap: 60px;
+        top: 45%;
+    }
+    
     .shirt-float {
-        font-size: 1.5rem;
+        width: 80px;
+        opacity: 0.7;
+    }
+    
+    .floating-shirts-left {
+        left: 1%;
+    }
+    
+    .floating-shirts-right {
+        right: 1%;
+    }
+}
+
+@media (max-width: 480px) {
+    .floating-shirts {
+        gap: 50px;
+        top: 40%;
+    }
+    
+    .shirt-float {
+        width: 60px;
+        opacity: 0.6;
+    }
+    
+    .floating-shirts-left {
+        left: 0.5%;
+    }
+    
+    .floating-shirts-right {
+        right: 0.5%;
+    }
+}
+
+/* הסתרה במסכים קטנים מאוד */
+@media (max-width: 360px) {
+    .floating-shirts {
+        display: none;
     }
 }
 
