@@ -983,18 +983,36 @@ section {
     max-width: 420px;
     height: 100vh;
     height: 100dvh;
-    background: var(--card-bg);
-    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, var(--card-bg) 0%, rgba(22, 22, 31, 0.98) 100%);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8), 0 0 60px rgba(0, 240, 255, 0.1);
     z-index: 2000;
-    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     display: flex;
     flex-direction: column;
     overflow: hidden;
     min-height: 0;
+    border-left: 1px solid rgba(0, 240, 255, 0.2);
+    backdrop-filter: blur(20px);
 }
 
 .cart-sidebar.active {
     right: 0;
+    transform: translateX(0);
+    animation: cartSlideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes cartSlideIn {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 .cart-header {
@@ -1029,6 +1047,35 @@ section {
 .cart-customer {
     flex-shrink: 0;
     margin: 1rem 1.5rem 0.5rem;
+    padding: 1.2rem;
+    border: 1px solid rgba(0, 240, 255, 0.15);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--dark-bg), rgba(22, 22, 31, 0.8));
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cart-customer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cart-customer:hover::before {
+    opacity: 1;
+}
+
+.cart-customer:hover {
+    border-color: rgba(0, 240, 255, 0.25);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
 }
 
 .cart-items {
@@ -1112,26 +1159,30 @@ section {
 .cart-field input,
 .cart-field textarea {
     width: 100%;
-    padding: 0.95rem 1rem;
-    background: rgba(22, 22, 31, 0.9);
-    border: 1px solid rgba(0, 240, 255, 0.18);
-    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    background: linear-gradient(135deg, rgba(22, 22, 31, 0.95), rgba(30, 30, 40, 0.9));
+    border: 1px solid rgba(0, 240, 255, 0.15);
+    border-radius: 14px;
     color: var(--text-primary);
     font-size: 0.95rem;
     font-family: inherit;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, transform 0.2s ease;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    position: relative;
 }
 
 .cart-field input::placeholder,
 .cart-field textarea::placeholder {
-    color: rgba(176, 176, 192, 0.75);
+    color: rgba(176, 176, 192, 0.6);
+    font-weight: 400;
 }
 
 .cart-field input:hover,
 .cart-field textarea:hover {
-    border-color: rgba(0, 240, 255, 0.35);
-    background: rgba(22, 22, 31, 0.98);
+    border-color: rgba(0, 240, 255, 0.3);
+    background: linear-gradient(135deg, rgba(22, 22, 31, 0.98), rgba(35, 35, 45, 0.95));
+    transform: translateY(-1px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .cart-field textarea {
@@ -1143,8 +1194,9 @@ section {
 .cart-field textarea:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.14), 0 10px 26px rgba(0, 240, 255, 0.08);
-    transform: translateY(-1px);
+    background: linear-gradient(135deg, rgba(22, 22, 31, 1), rgba(40, 40, 50, 0.98));
+    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.2), 0 15px 35px rgba(0, 240, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
 }
 
 .cart-field input:-webkit-autofill,
@@ -1161,14 +1213,40 @@ section {
 }
 
 .cart-item {
-    background: var(--dark-bg);
+    background: linear-gradient(135deg, var(--dark-bg) 0%, rgba(22, 22, 31, 0.9) 100%);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 1rem;
+    border-radius: 16px;
+    padding: 1.2rem;
     margin-bottom: 1rem;
     display: flex;
     gap: 1rem;
-    animation: slideIn 0.3s ease-out;
+    animation: slideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cart-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.cart-item:hover::before {
+    transform: scaleX(1);
+}
+
+.cart-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    border-color: rgba(0, 240, 255, 0.3);
 }
 
 @keyframes slideIn {
@@ -1185,10 +1263,16 @@ section {
 .cart-item-image {
     width: 70px;
     height: 70px;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
     flex-shrink: 0;
-    background: var(--border-color);
+    background: linear-gradient(135deg, var(--border-color), rgba(0, 240, 255, 0.1));
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.cart-item-image:hover {
+    transform: scale(1.05);
 }
 
 .cart-item-image img {
@@ -1235,9 +1319,11 @@ section {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: var(--card-bg);
-    border-radius: 8px;
-    padding: 0.25rem;
+    background: linear-gradient(135deg, var(--card-bg), rgba(22, 22, 31, 0.8));
+    border-radius: 12px;
+    padding: 0.4rem;
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .qty-btn {
@@ -1245,14 +1331,41 @@ section {
     border: none;
     color: var(--primary-color);
     cursor: pointer;
-    padding: 0.25rem 0.5rem;
+    padding: 0.35rem 0.6rem;
     font-size: 1.2rem;
-    transition: var(--transition);
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     line-height: 1;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.qty-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(0, 240, 255, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+.qty-btn:active::before {
+    width: 30px;
+    height: 30px;
 }
 
 .qty-btn:hover {
     color: var(--accent-color);
+    background: rgba(0, 240, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.qty-btn:active {
+    transform: scale(0.95);
 }
 
 .qty-value {
@@ -1265,15 +1378,47 @@ section {
     background: transparent;
     border: 1px solid var(--danger);
     color: var(--danger);
-    padding: 0.4rem;
-    border-radius: 8px;
+    padding: 0.5rem;
+    border-radius: 10px;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+}
+
+.remove-item::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: var(--danger);
+    transform: translate(-50%, -50%);
+    transition: width 0.4s, height 0.4s;
+    z-index: 0;
+}
+
+.remove-item:hover::before {
+    width: 100%;
+    height: 100%;
+}
+
+.remove-item svg {
+    position: relative;
+    z-index: 1;
 }
 
 .remove-item:hover {
     background: var(--danger);
     color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(255, 51, 102, 0.4);
+}
+
+.remove-item:active {
+    transform: scale(0.95);
 }
 
 .cart-empty {
@@ -1338,23 +1483,61 @@ section {
 
 /* ===== כפתור WhatsApp בעגלה - תיקון למובייל ===== */
 .btn-whatsapp {
-    padding: 1rem 1.5rem;
+    padding: 1.1rem 1.5rem;
     font-size: 1rem;
     width: 100%;
     display: flex !important;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    background: #25D366;
+    background: linear-gradient(135deg, #25D366, #128C7E);
     color: #fff;
     border: 2px solid #25D366;
+    border-radius: 14px;
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+    text-transform: none;
+    letter-spacing: 0.3px;
+}
+
+.btn-whatsapp::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    z-index: 0;
+}
+
+.btn-whatsapp:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-whatsapp span,
+.btn-whatsapp svg {
+    position: relative;
+    z-index: 1;
 }
 
 .btn-whatsapp:hover {
-    background: #1fb85a;
-    border-color: #1fb85a;
-    box-shadow: 0 0 20px rgba(37, 211, 102, 0.35);
-    transform: translateY(-1px);
+    background: linear-gradient(135deg, #128C7E, #0F5D4E);
+    border-color: #128C7E;
+    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.45), 0 0 20px rgba(37, 211, 102, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-whatsapp:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 15px rgba(37, 211, 102, 0.4);
 }
 
 .btn-whatsapp svg {
@@ -1363,11 +1546,18 @@ section {
 
 .btn-whatsapp.is-disabled,
 .btn-whatsapp:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
     transform: none;
-    box-shadow: none;
-    filter: grayscale(0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    filter: grayscale(0.3);
+    background: linear-gradient(135deg, #666, #555);
+    border-color: #666;
+}
+
+.btn-whatsapp.is-disabled::before,
+.btn-whatsapp:disabled::before {
+    display: none;
 }
 
 .cart-send-hint {
