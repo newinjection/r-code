@@ -407,7 +407,7 @@ function initCart() {
     const cartSendHint = document.getElementById('cartSendHint');
     const cartPhone = document.getElementById('cartPhone');
     const cartAddress = document.getElementById('cartAddress');
-    const cartCustomer = document.getElementById('cartCustomer');
+    const cartCustomerEl = document.getElementById('cartCustomer');
     const cartCustomerToggle = document.getElementById('cartCustomerToggle');
 
     function syncOnResize() {
@@ -472,8 +472,8 @@ function initCart() {
     cartAddress?.addEventListener('input', persistCartCustomer);
 
     cartCustomerToggle?.addEventListener('click', () => {
-        if (!cartCustomer) return;
-        const isCollapsed = cartCustomer.classList.toggle('collapsed');
+        if (!cartCustomerEl) return;
+        const isCollapsed = cartCustomerEl.classList.toggle('collapsed');
         cartCustomerToggle.setAttribute('aria-expanded', String(!isCollapsed));
         syncCartBottomPadding();
     });
