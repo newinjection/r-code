@@ -989,7 +989,8 @@ section {
     transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     min-height: 0;
 }
 
@@ -1027,8 +1028,8 @@ section {
 }
 
 .cart-items {
-    flex: 1;
-    overflow-y: auto;
+    flex: 0 0 auto;
+    overflow: visible;
     padding: 1.5rem;
     min-height: 0;
 }
@@ -1250,8 +1251,10 @@ section {
     flex-shrink: 0;
     background: var(--card-bg);
     margin-top: auto;
-    position: relative;
-    z-index: 1;
+    position: sticky;
+    bottom: 0;
+    z-index: 3;
+    box-shadow: 0 -12px 24px rgba(0, 0, 0, 0.35);
 }
 
 .cart-total {
