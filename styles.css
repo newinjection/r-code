@@ -1162,6 +1162,9 @@ section {
     border-top: 1px solid var(--border-color);
     flex-shrink: 0;
     background: var(--card-bg);
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
 }
 
 .cart-total {
@@ -1210,6 +1213,16 @@ section {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    background: #25D366;
+    color: #fff;
+    border: 2px solid #25D366;
+}
+
+.btn-whatsapp:hover {
+    background: #1fb85a;
+    border-color: #1fb85a;
+    box-shadow: 0 0 20px rgba(37, 211, 102, 0.35);
+    transform: translateY(-1px);
 }
 
 .btn-whatsapp svg {
