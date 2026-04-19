@@ -404,6 +404,7 @@ function initCart() {
     const cartSidebar = document.getElementById('cartSidebar');
     const cartOverlay = document.getElementById('cartOverlay');
     const sendWhatsApp = document.getElementById('sendWhatsApp');
+    const cartSendHint = document.getElementById('cartSendHint');
     const cartPhone = document.getElementById('cartPhone');
     const cartAddress = document.getElementById('cartAddress');
     const cartCustomer = document.getElementById('cartCustomer');
@@ -431,6 +432,9 @@ function initCart() {
         if (sendWhatsApp) {
             sendWhatsApp.disabled = !ok;
             sendWhatsApp.classList.toggle('is-disabled', !ok);
+        }
+        if (cartSendHint) {
+            cartSendHint.hidden = ok;
         }
     }
 
