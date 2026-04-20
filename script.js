@@ -1,11 +1,6 @@
 // ===== GLOBAL VARIABLES =====
 let cart = JSON.parse(localStorage.getItem('rcode-cart')) || [];
 const SHIPPING_COST = 25; // דמי משלוח קבועים - ניתן לשנות
-const CART_CUSTOMER_STORAGE_KEY = 'rcode-cart-customer';
-let cartCustomer = JSON.parse(localStorage.getItem(CART_CUSTOMER_STORAGE_KEY)) || {
-    phone: '',
-    address: ''
-};
 
 // ===== PRODUCTS DATA =====
 const products = [
@@ -394,8 +389,6 @@ function updateCartUI() {
     } else {
         totalPrice.textContent = '₪0';
     }
-
-    syncCartBottomPadding();
 }
 
 function initCart() {
@@ -404,55 +397,11 @@ function initCart() {
     const cartSidebar = document.getElementById('cartSidebar');
     const cartOverlay = document.getElementById('cartOverlay');
     const sendWhatsApp = document.getElementById('sendWhatsApp');
-    const cartSendHint = document.getElementById('cartSendHint');
-    const cartPhone = document.getElementById('cartPhone');
-    const cartAddress = document.getElementById('cartAddress');
-    const cartCustomerEl = document.getElementById('cartCustomer');
-    const cartCustomerToggle = document.getElementById('cartCustomerToggle');
-
-    function syncOnResize() {
-        syncCartBottomPadding();
-    }
-
-    function hydrateCartCustomer() {
-        if (cartPhone) cartPhone.value = cartCustomer.phone || '';
-        if (cartAddress) cartAddress.value = cartCustomer.address || '';
-        updateSendWhatsAppState();
-        syncCartBottomPadding();
-    }
-
-    function normalizePhone(value) {
-        return (value || '').replace(/[^\d+]/g, '').trim();
-    }
-
-    function updateSendWhatsAppState() {
-        const phone = normalizePhone(cartPhone?.value || '');
-        const address = (cartAddress?.value || '').trim();
-        const ok = cart.length > 0 && phone.length >= 9 && address.length >= 6;
-        if (sendWhatsApp) {
-            sendWhatsApp.disabled = !ok;
-            sendWhatsApp.classList.toggle('is-disabled', !ok);
-        }
-        if (cartSendHint) {
-            cartSendHint.hidden = ok;
-        }
-    }
-
-    function persistCartCustomer() {
-        cartCustomer = {
-            phone: (cartPhone?.value || '').trim(),
-            address: (cartAddress?.value || '').trim()
-        };
-        localStorage.setItem(CART_CUSTOMER_STORAGE_KEY, JSON.stringify(cartCustomer));
-        updateSendWhatsAppState();
-        syncCartBottomPadding();
-    }
 
     function openCart() {
         cartSidebar.classList.add('active');
         cartOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
-        syncCartBottomPadding();
     }
 
     function closeCart() {
@@ -466,30 +415,6 @@ function initCart() {
     cartOverlay.addEventListener('click', closeCart);
 
     sendWhatsApp.addEventListener('click', sendCartToWhatsApp);
-    window.addEventListener('resize', syncOnResize);
-
-    cartPhone?.addEventListener('input', persistCartCustomer);
-    cartAddress?.addEventListener('input', persistCartCustomer);
-
-    cartCustomerToggle?.addEventListener('click', () => {
-        if (!cartCustomerEl) return;
-        const isCollapsed = cartCustomerEl.classList.toggle('collapsed');
-        cartCustomerToggle.setAttribute('aria-expanded', String(!isCollapsed));
-        syncCartBottomPadding();
-    });
-
-    hydrateCartCustomer();
-}
-
-function syncCartBottomPadding() {
-    const cartItems = document.getElementById('cartItems');
-    const cartFooter = document.querySelector('#cartSidebar .cart-footer');
-    if (!cartItems || !cartFooter) return;
-
-    const extra = 16; // breathing room above the footer
-    const bottomSpace = Math.max(0, cartFooter.offsetHeight + extra);
-    cartItems.style.paddingBottom = `${bottomSpace}px`;
-    cartItems.style.scrollPaddingBottom = `${bottomSpace}px`;
 }
 
 // ===== TOAST NOTIFICATION =====
@@ -515,27 +440,9 @@ function sendCartToWhatsApp() {
         return;
     }
 
-    const phoneNumber = '972584990152'; // החלף במספר שלך
-
-    const customerPhone = (document.getElementById('cartPhone')?.value || '').trim();
-    const customerAddress = (document.getElementById('cartAddress')?.value || '').trim();
-
-    if (!customerPhone || customerPhone.replace(/[^\d+]/g, '').length < 9) {
-        alert('נא להזין מספר פלאפון תקין למשלוח.');
-        document.getElementById('cartPhone')?.focus();
-        return;
-    }
-
-    if (!customerAddress || customerAddress.length < 6) {
-        alert('נא להזין כתובת משלוח.');
-        document.getElementById('cartAddress')?.focus();
-        return;
-    }
+    const phoneNumber = '972501234567'; // החלף במספר שלך
     
     let message = '🛍️ *הזמנה חדשה מ-R-CODE*\n\n';
-    message += '👤 *פרטי משלוח:*\n';
-    message += `📞 פלאפון: ${customerPhone}\n`;
-    message += `📍 כתובת: ${customerAddress}\n\n`;
     message += '📦 *פרטי ההזמנה:*\n';
     message += '━━━━━━━━━━━━━━━\n\n';
 
@@ -570,7 +477,7 @@ function initCustomOrder() {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const phoneNumber = '972584990152'; // החלף במספר שלך
+        const phoneNumber = '972501234567'; // החלף במספר שלך
 
         // Get form data
         const formData = {
